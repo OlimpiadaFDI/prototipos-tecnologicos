@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Multiplica</string>
+    <string name="instructions">Escriba el número que quiera multiplicar</string>
+    <string name="btn_multiply">¡Enviar y multiplicar!</string>
+    <string name="number">¡Su número aquí!</string>
+    <string name="invalid_number">¡Ese número no es válido!</string>
+    <string name="connected">Estamos conectados a Internet</string>
+    <string name="not_connected">No estamos conectados a Internet</string>
+
+</resources>

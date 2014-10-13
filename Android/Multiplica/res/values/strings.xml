@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Multiply</string>
+    <string name="instructions">Insert the number you want to multiply</string>
+    <string name="btn_multiply">Send and multiply!</string>
+    <string name="number">Your number here!</string>
+    <string name="default_result">0</string>
+    <string name="invalid_number">That\'s not a valid number!</string>
+    <string name="connected">We are connected to the Internet</string>
+    <string name="not_connected">We are not connected to the Internet</string>
+    
+
+</resources>
