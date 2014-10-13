@@ -117,7 +117,7 @@ public class MainActivity extends Activity {
 						listItems.add(items.get(i).getUrl() + ":\n"
 								+ items.get(i).getText());
 				}
-				String toShow = items.get(1).getText();
+				String toShow = items.get(0).getText();
 				myTextView.setText(toShow);
 				
 //-----------------------------------------------------------------------------------------------
