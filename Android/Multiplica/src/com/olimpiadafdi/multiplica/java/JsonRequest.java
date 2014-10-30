@@ -57,6 +57,7 @@ public class JsonRequest {
 
 			ArrayList<Item> items = parseHtml(html);
 			if (items == null) {
+				Log.e("test", "Empty ArrayList - JSONRequest line 60");
 				return false;
 			}
 
@@ -81,15 +82,17 @@ public class JsonRequest {
 
 				for (int i = 0; i < twitterPostingsArray.length(); i++) {
 					Item item = new Item();
-					url = twitterPostingsArray.getJSONObject(i)
-							.getString("FirstURL").toString();
-					text = twitterPostingsArray.getJSONObject(i)
-							.getString("Text").toString();
-
-					item.setUrl(url);
-					item.setText(text);
-
-					postings.add(item);
+					if ((twitterPostingsArray.getJSONObject(i).has("FirstURL")) && (twitterPostingsArray.getJSONObject(i).has("Text"))){
+						url = twitterPostingsArray.getJSONObject(i)
+								.getString("FirstURL").toString();
+						text = twitterPostingsArray.getJSONObject(i)
+								.getString("Text").toString();
+	
+						item.setUrl(url);
+						item.setText(text);
+						Log.d("test", i+" "+text);
+						postings.add(item);
+					}
 				}
 				return postings;
 			} catch (JSONException e) {

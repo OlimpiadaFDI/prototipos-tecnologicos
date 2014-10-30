@@ -94,16 +94,12 @@ public class MainActivity extends Activity {
 //-----------------------------------------------------------------------------------------------
 				
 				//Enviar info
-				String result;
 				if (conectados){
 					JsonRequest jsonRequest = new JsonRequest(
-							"http://api.duckduckgo.com/?q=" + input +
-							"&format=json&pretty=1", getApplicationContext(),
-							updateDataSuccess, updateDataError);
+							"http://api.duckduckgo.com/?q=" + input + "&format=json&pretty=1", 
+							getApplicationContext(), updateDataSuccess, updateDataError);
 					jsonRequest.request();
 				}
-				else
-					result = "";
 				
 //-----------------------------------------------------------------------------------------------
 			
@@ -113,12 +109,17 @@ public class MainActivity extends Activity {
 				
 				ArrayList<String> listItems = new ArrayList<String>();
 				
-				for (int i = 0; i < Math.min(items.size(), 3); i++) {
-						listItems.add(items.get(i).getUrl() + ":\n"
-								+ items.get(i).getText());
+				if (!items.isEmpty()){
+					for (int i = 0; i < Math.min(items.size(), 3); i++) {
+							listItems.add(items.get(i).getUrl() + ":\n"
+									+ items.get(i).getText());
+					}
+					String toShow = items.get(0).getText();
+					myTextView.setText(toShow);
 				}
-				String toShow = items.get(0).getText();
-				myTextView.setText(toShow);
+				else{
+					Log.e("test", "Empty ArrayList MAINACTIVITY line 124");
+				}
 				
 //-----------------------------------------------------------------------------------------------
 				
