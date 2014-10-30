@@ -52,10 +52,12 @@ public class MainActivity extends Activity {
 				input = myEditText.getText().toString();
 				
 //-----------------------------------------------------------------------------------------------
-				/*
+				
 				//Convertir a int
+				boolean converted = false;
 				try{
 					value = Integer.parseInt(input);
+					converted = true;
 					
 				}catch(NumberFormatException e){
 					Context context = getApplicationContext();
@@ -66,7 +68,7 @@ public class MainActivity extends Activity {
 					Toast toast = Toast.makeText(context, text, duration);
 					toast.show();
 				}
-				*/
+				
 //-----------------------------------------------------------------------------------------------
 				
 				//Probar que estamos conectados a internet
@@ -94,31 +96,11 @@ public class MainActivity extends Activity {
 //-----------------------------------------------------------------------------------------------
 				
 				//Enviar info
-				if (conectados){
+				if ((conectados) && (converted)){
 					JsonRequest jsonRequest = new JsonRequest(
-							"http://api.duckduckgo.com/?q=" + input + "&format=json&pretty=1", 
+							"http://api.duckduckgo.com/?q=" + input + "*2&format=json&pretty=1", 
 							getApplicationContext(), updateDataSuccess, updateDataError);
 					jsonRequest.request();
-				}
-				
-//-----------------------------------------------------------------------------------------------
-			
-				//Visualizar el resultado
-				DBHandler db = new DBHandler(getApplicationContext());
-				ArrayList<Item> items = db.readItems();
-				
-				ArrayList<String> listItems = new ArrayList<String>();
-				
-				if (!items.isEmpty()){
-					for (int i = 0; i < Math.min(items.size(), 3); i++) {
-							listItems.add(items.get(i).getUrl() + ":\n"
-									+ items.get(i).getText());
-					}
-					String toShow = items.get(0).getText();
-					myTextView.setText(toShow);
-				}
-				else{
-					Log.e("test", "Empty ArrayList MAINACTIVITY line 124");
 				}
 				
 //-----------------------------------------------------------------------------------------------
@@ -130,7 +112,24 @@ public class MainActivity extends Activity {
 	
 	private Runnable updateDataSuccess = new Runnable() { 
 		public void run() { 
-			Log.d("test", "success"); 
+			Log.d("test", "success");
+			//Visualizar el resultado
+			DBHandler db = new DBHandler(getApplicationContext());
+			ArrayList<Item> items = db.readItems();
+			
+			ArrayList<String> listItems = new ArrayList<String>();
+			
+			if (!items.isEmpty()){
+				for (int i = 0; i < Math.min(items.size(), 3); i++) {
+						listItems.add(items.get(i).getUrl() + ":\n"
+								+ items.get(i).getText());
+				}
+				String toShow = items.get(0).getText();
+				myTextView.setText(toShow);
+			}
+			else{
+				Log.e("test", "Empty ArrayList MAINACTIVITY line 130");
+			}
 		} 
 	}; 
 	private Runnable updateDataError = new Runnable() { 

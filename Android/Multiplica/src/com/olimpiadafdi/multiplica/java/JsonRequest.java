@@ -49,7 +49,8 @@ public class JsonRequest {
 		// JSON-Parser
 		@Override
 		protected Boolean doInBackground(String... uri) {
-
+			db.clearItems();
+			
 			String html = loadData(uri[0]);
 			if (html == null) {
 				return false;
@@ -65,7 +66,7 @@ public class JsonRequest {
 				Log.d("test", i + ": " + items.get(i).getUrl());
 			}
 
-			db.clearItems();
+			
 			db.writeItems(items);
 			return true;
 		}
@@ -74,7 +75,26 @@ public class JsonRequest {
 			ArrayList<Item> postings = new ArrayList<Item>();
 			try {
 				JSONObject twitterObject = new JSONObject(html);
-				JSONArray twitterPostingsArray = twitterObject
+				String answer = twitterObject.getString("Answer").toString();
+				//answer = answer.replaceAll("[^0-9]", "");
+				//Tratamiento de la respuesta en html para sacar el resultado sin información como div, class, etc...
+				answer = answer.split("\\<")[4].split("\\>")[1];
+				
+				Item item = new Item();
+				item.setUrl("");
+				item.setText(answer);
+				
+				Log.d("test", "Answer: "+answer);
+				
+				postings.add(item);
+				return postings;
+				
+				/*
+				 * El código de abajo sirve para realizar una búsqueda normal en DuckDuckGo.
+				 * Los cálculos y los 
+				 * */
+				 
+				/*JSONArray twitterPostingsArray = twitterObject
 						.getJSONArray("RelatedTopics");
 
 				String url;
@@ -94,7 +114,7 @@ public class JsonRequest {
 						postings.add(item);
 					}
 				}
-				return postings;
+				return postings;*/
 			} catch (JSONException e) {
 				Log.e("test", "There was an error parsing the JSON", e);
 			}
